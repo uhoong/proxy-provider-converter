@@ -17,6 +17,10 @@ export default function Home() {
     url
   )}&target=${target}`;
 
+  const convertedUrlInSpecificArea = `${host}/api/convertedUrlInSpecificArea?url=${encodeURIComponent(
+    url
+  )}&target=${target}`;
+
   let urlHost = "";
   try {
     urlHost = new URL(url).hostname;
@@ -133,20 +137,11 @@ ${urlHost || "egroup"} = select, policy-path=${convertedUrl}
           </div>
         )}
         {url && (
-          <div className="w-full p-4 mt-4 text-gray-100 bg-gray-900 rounded-lg hidden md:block">
-            {/* prettier-ignore */}
-            {target !== "surge" && (
-              <pre className="whitespace-pre-wrap">{clashConfig}</pre>
-            )}
+          <div className="break-all p-3 mt-4 rounded-lg text-gray-100 bg-gray-900 shadow-sm w-full">
+            {convertedUrlInSpecificArea}
 
-            {target === "surge" && <pre>{surgeConfig}</pre>}
-            {/* prettier-ignore */}
-
-            <CopyToClipboard
-              text={target === "surge" ? surgeConfig : clashConfig}
-              onCopy={() => copiedToast()}
-            >
-              <div className="flex items-center text-sm mt-4 text-gray-400 cursor-pointer hover:text-gray-300 transition duration-200 select-none">
+            <CopyToClipboard text={convertedUrlInSpecificArea} onCopy={() => copiedToast()}>
+              <div className="flex items-center text-sm mt-4 text-gray-400  cursor-pointer  hover:text-gray-300 transition duration-200 select-none">
                 <DuplicateIcon className="h-5 w-5 mr-1 inline-block" />
                 点击复制
               </div>
